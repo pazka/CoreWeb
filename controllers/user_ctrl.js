@@ -26,7 +26,9 @@ User.addUser= function(nom,prenom,psw,cpsw){
 
     return new Promise((resolve,reject)=>{
         if(psw != cpsw)
-            return resolve({stat : "nok",text:"password and confirmPassword must be the same"});
+            return resolve({stat : "nok",text:"Le mot de passe et le mot de passe de confirmation ne sont pas identiques."});
+        if(psw.length < 6)
+            return resolve({stat : "nok",text:"Le mot de passe doit faire 6 caractère minimum"});
 
 
         return model.am.getAmicalisteParam({nom : nom, prenom, prenom}).then((result)=>{
