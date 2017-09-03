@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .main.container
+        .row
+            h1.display-4.m-b-2 ##{id}
+            img#reloadImg(src="/images/reload.png" onclick="refresh()")
+    .center-block   
+        .row 
+            .col.items
+                h2#solde #{cc/100} cc
+            a(href="/user/dashboard/addMoney").col.items 
+                h3 Ajouter Corecoin 
+        .row 
+            a(href="/user/dashboard/giveMoney").col.items 
+                h3 Donner Corecoin
+            a(href="/user/dashboard/history").col.items 
+                h3 Voir Historique
+
+    script(src="/javascripts/user.js")

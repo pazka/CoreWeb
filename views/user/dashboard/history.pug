@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    .main.container
+        .row                        
+            .col-12.col-md-6.col-md-offset-3
+                h2 Vos achats
+                table.orange.table
+                    tr
+                        th Product
+                        th Qt
+                        th totalPrice
+                        th Date
+                    each sale in allSales
+                        tr
+                            td= sale['vente.prod.nom']
+                            td= sale['vente.qt']
+                            if sale['basket.state'] == "lqp"
+                                td= sale['vente.prixVe']/100 + " €"
+                            else
+                                td= sale['vente.prixVe']/100 + " cc"
+                            td= new Date(sale['vente.createdAt']).toLocaleDateString()
+                            
+            .col-12.col-md-6.col-md-offset-3
+                h2 Vos transferts
+                table.orange.table
+                    tr
+                        th Sender
+                        th Receiver
+                        th Qt
+                        th Date
+                    each val in allTrans
+                        if val.idReceiver != 2
+                            tr
+                                td= val.idSender == you ? "You" : (val.ase.nom + " - "+val.ase.idAm)
+                                td= val.idReceiver  == you ? "You" : (val.are.nom + " - "+val.are.idAm)
+                                td= val.amount/100
+                                td= new Date(val.createdAt).toLocaleDateString()

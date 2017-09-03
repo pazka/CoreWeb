@@ -1,0 +1,97 @@
+extends layout
+
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 Tableau de bord de la caisse
+                p(style="font-weight:bold")#message
+                
+            .curOrder.col-md-6.col-sm-12
+                block order
+        
+    
+    .validation
+        button.btn.btn-success#activateList <
+        .listToValidate.hide
+            each bask in allBasks
+                if Date.now() - new Date(bask.createdAt) > 30*60*1000
+                    div(id="bask"+bask.idBask).bask.danger
+                        .control
+                            button.btn.btn-sm.btn-danger(type="button" onclick="cancel("+bask.idBask+")") x
+                            if bask.remarque.length > 7 && bask.remarque != "aucune"
+                                p.highlight(id=bask.idBask onmouseenter="hideRemarque("+bask.idBask+")" onmouseleave="hideRemarque("+bask.idBask+")" data-remarque=bask.remarque) #{bask.idBask}
+                            else
+                                p(id=bask.idBask onmouseenter="hideRemarque("+bask.idBask+")" onmouseleave="hideRemarque("+bask.idBask+")" data-remarque=bask.remarque) #{bask.idBask}
+                            button.btn.btn-sm.btn-primary(type="button" onclick="validate("+bask.idBask+")") v
+                        if bask.state == "lq_"
+                            p.stateTxt.highlightRed #{bask.state}
+                        else
+                            p.stateTxt #{bask.state}
+                        p.desc.hidden(id="desc"+bask.idBask)= bask.remarque
+                        p#priceBask #{bask.prixTot/100}
+                        .listProd
+                            each prod in bask.ventes
+                                p(class=prod.cat+"Css")= prod.qt+"."+prod.nom
+                else    
+                    div(id="bask"+bask.idBask).bask
+                        .control
+                            button.btn.btn-sm.btn-danger(type="button" onclick="cancel("+bask.idBask+")") x
+                            if bask.remarque.length > 7 && bask.remarque != "aucune"
+                                p.highlight(id=bask.idBask onmouseenter="hideRemarque("+bask.idBask+")" onmouseleave="hideRemarque("+bask.idBask+")" data-remarque=bask.remarque) #{bask.idBask}
+                            else
+                                p(id=bask.idBask onmouseenter="hideRemarque("+bask.idBask+")" onmouseleave="hideRemarque("+bask.idBask+")" data-remarque=bask.remarque) #{bask.idBask}
+                            button.btn.btn-sm.btn-primary(type="button" onclick="validate("+bask.idBask+")") v
+                        if bask.state == "lq_"
+                            p.stateTxt.highlightRed #{bask.state}
+                        else
+                            p.stateTxt #{bask.state}
+                        p.desc.hidden(id="desc"+bask.idBask)= bask.remarque
+                        p#priceBask #{bask.prixTot/100}
+                        .listProd
+                            each prod in bask.ventes
+                                p(class=prod.cat+"Css")= prod.qt+"."+prod.nom
+                    
+    
+    h5#untreatedBask(data-nb=allBasks.length)= allBasks.length + " untreated baskets"
+    
+    .dashboard.row
+        each cat in allProd.allCat
+            .col-md-6.col-12
+                h5= cat
+                .category.row.mr-2
+                    each prod in allProd[cat]
+                        .col-md-2.col-4.noPadding
+                            button(onclick="addProduct("+prod.idProd+")" id=prod.idProd+"Btn" data-cat=cat class=cat+"Css" data-prix=prod.prix).product
+                                img(src="/images/imgProd/"+prod.img alt=prod.nom)
+                                .infos
+                                    p(id=prod.idProd+"qtv").qtv #{prod.qtVirt}
+                                    p(id=prod.idProd+"price").price #{prod.prix/100}
+                                    p(id=prod.idProd+"qtr").qtr #{prod.qtReal}
+                                p(id=prod.idProd+"name") #{prod.nom}
+    
+    .form-group.row
+        input#idVal.form-control(type="text", placeholder="Id to grant membership").col-md-4.col-sm-8
+        button.btn.btn-success(onclick="validateAmicaliste()") Grant Membership
+    .form-group.row
+        .col-md-4.col-sm-6.row
+            input.col#idFill.form-control(type="text", placeholder="Id to fill")
+            input.col#amountFill.form-control(type="text", placeholder="amount(+)")
+        button.btn.btn-success(onclick="fillAccount()") Fill Account
+    .form-group.row
+        input#getIdAm.form-control(type="text", placeholder="Id to check").col-md-4.col-sm-8
+        button.btn.btn-success(onclick="getAmicaliste()") Check User
+        p#userInfos
+    .form-group.row
+        input#getIdAmName.form-control(type="text", placeholder="name to find").col-md-4.col-sm-8
+        button.btn.btn-success(onclick="getAmicalisteName()") Check User By Name
+        p#userInfosName
+    .form-group.row
+        input#name.form-control(type="text", placeholder="nom").col-md-2.col-sm-4
+        input#surname.form-control(type="text", placeholder="prénom").col-md-2.col-sm-4
+        button.btn.btn-success(onclick="createAmicaliste()") Create Regular Amicaliste
+        p#createdUser
+    
+        
+    script(src="/javascripts/order.js")
+    script(src="/javascripts/checkout.js")

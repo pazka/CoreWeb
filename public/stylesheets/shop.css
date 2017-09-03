@@ -1,0 +1,92 @@
+.dashboard{
+    margin-top: 50px;
+}
+
+
+.category .product .infos {
+    display: flex;
+    justify-content: space-between;
+    padding:0;
+    margin : 0px;
+    border-bottom: solid grey 1Px;
+}
+
+.category .product p {
+    margin : 0;
+    padding: 0;
+}
+.category .product .infos .price {
+    font-weight: bold;
+}
+.category .product .infos .qtr {
+    color: white;
+}
+.category .product .infos .qtv {
+    color: blue;
+}
+
+.product{
+    width:100%;
+    height: 100%;
+    padding:3px;
+    border-radius: 5px;
+    margin:0px;
+}
+
+.product:hover{
+    -webkit-box-shadow: 10px 10px 23px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 23px -9px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 23px -9px rgba(0,0,0,0.75);
+}
+
+.product img{
+    width:100%;
+    max-width: 20vw;
+    max-width : 30vw;
+}
+
+.shopOrder{
+    background-color: rgb(245,245,255)
+}
+
+.curOrder {
+    background-color: rgb(245,245,255);
+    border-radius: 10px;
+    align-items:baseline;
+}
+
+.curOrder *{
+    border-radius: 10px;
+}
+
+.eltListProd{
+    padding: 2px;
+    margin: 2px;
+    background-color: rgba(250, 200, 196, 0.3);
+}
+.eltListProd p{
+    padding: 0px;
+    margin: 0px;
+}
+
+.eltListProd p:first-child {
+    font-weight: bold;
+    padding: 2px;
+    margin: 2px;
+}
+
+#execButton{
+    align-self:center;
+    border: none;
+    width:100%;
+}
+
+#totalPrice{
+    font-weight: bold;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.dashboard{
+    margin-bottom: 30px;
+}

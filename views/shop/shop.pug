@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    .row
+        .col-md-3.col-md-offset-3
+            h3.display-4.m-b-2 Shop 
+            
+        .curOrder.col-md-4.col-sm-12
+            .row
+                .col
+                    h5 Commande courante
+                    .row
+                        p.col-4 Prix:
+                        p.col-4#totalPrice.col 0
+                        p.col-4 cc
+                .col
+                    input#remarque(type="text" placeholder="Remarque")
+                    .row
+                        label.switch
+                            input.switch#state(type="checkbox" checked="checked" onchange="changeStatus()")
+                            span.slider.round
+                        p#lblStat CoreCoin
+                        button#execButton.btn.btn-primary Réserver Commande
+            .row#orderProd
+                
+    p#message
+    .dashboard.row
+        each cat in allProd.allCat
+            .col-md-6.col-12
+                if availableCat.indexOf(cat) == -1
+                    h5= cat + " [Indisp.]"
+                else
+                    h5= cat 
+                        
+                .category.row.mr-2
+                    each prod in allProd[cat]
+                        if availableCat.indexOf(cat) == -1
+                            .col-md-2.col-4.noPadding
+                                button(id=prod.idProd+"Btn" data-cat=cat  data-prix=prod.prix).product
+                                    img(src="/images/imgProd/"+prod.img alt=prod.nom)
+                                    .infos
+                                        p(id=prod.idProd+"price").price #{prod.prix/100} cc
+                                        p(id=prod.idProd+"qtv").qtv [#{prod.qtVirt}]
+                                    p(id=prod.idProd+"name") #{prod.nom}
+                        else
+                            .col-md-2.col-4.noPadding
+                                button.highlightBlue(onclick="addProduct("+prod.idProd+")" id=prod.idProd+"Btn" data-cat=cat  data-prix=prod.prix).product
+                                    img(src="/images/imgProd/"+prod.img alt=prod.nom)
+                                    .infos
+                                        p(id=prod.idProd+"price").price #{prod.prix/100} cc
+                                        p(id=prod.idProd+"qtv").qtv [#{prod.qtVirt}]
+                                    p(id=prod.idProd+"name") #{prod.nom}
+                
+        script(src="/javascripts/order.js")
+        script(src="/javascripts/shopClient.js")

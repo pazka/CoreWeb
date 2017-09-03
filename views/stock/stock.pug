@@ -1,0 +1,78 @@
+extends layout
+
+block content
+    h1.display-4.m-b-4 Gestion des stocks
+    div#mess
+    p#nbProd= allProd.length + " products displayed" 
+        
+    each cat in allProd.allCat
+        .title-right
+            h3(class=cat+"Css") #{cat}
+        Table.table
+            thead
+                tr
+                    th Id
+                    th Nom
+                    th Prix
+                    th Description
+                    th Qt
+                    th QtVirt
+                    th Catégorie
+                    th ImgPath
+                    th ctrl
+            tbody    
+                each prod in allProd[cat]
+                    tr.form-group
+                        td(id="idProd-"+prod.idProd)  #{prod.idProd}
+                        td
+                            textarea(onchange="completeParams("+prod.idProd+",'nom')" id="nom-"+prod.idProd cols=10 rows=1) #{prod.nom }
+                        td
+                            textarea(onchange="completeParams("+prod.idProd+",'prix')" id="prix-"+prod.idProd cols=5 rows=1)= prod.prix/100
+                        td
+                            textarea(onchange="completeParams("+prod.idProd+",'desc')" id="desc-"+prod.idProd cols=10 rows=1) #{prod.desc}
+                        td
+                            .controlButton
+                                p(id="qtReal-"+prod.idProd)= prod.qtReal
+                                textarea(cols=2 rows=1 id="qtR"+prod.idProd)
+                                button.btn.btn-xs(onclick="incProd("+prod.idProd+",'1')" id="qtR-"+prod.idProd) +
+                                button.btn.btn-xs(onclick="incProd("+prod.idProd+",'-1')" id="qtR-"+prod.idProd) -
+                        td
+                            .controlButton
+                                p(id="qtVirt-"+prod.idProd)= prod.qtVirt
+                                textarea(cols=2 rows=1 id="qtV"+prod.idProd) 
+                                button.btn.btn-xs(onclick="incProdVirt("+prod.idProd+",'1')" id="qtV-"+prod.idProd) +
+                                button.btn.btn-xs(onclick="incProdVirt("+prod.idProd+",'-1')" id="qtV-"+prod.idProd) -
+                        td
+                            select(onchange="completeParams("+prod.idProd+",'cat')" id="cat-"+prod.idProd) 
+                                each minicat in allProd.allCat
+                                    if minicat == cat
+                                        option(value=minicat selected="selected") #{minicat}
+                                    else
+                                        option(value=minicat) #{minicat}
+                        td
+                            textarea(onchange="completeParams("+prod.idProd+",'img')" id="img-"+prod.idProd cols=10 rows=1) #{prod.img}
+                        td.controlButton
+                            button.btn.btn-default(id="btnUp-"+prod.idProd onclick="updateProd("+prod.idProd+")") Up
+                            button.btn.btn-default(id="btnX-"+prod.idProd onclick="softdeleteProd("+prod.idProd+")") X
+    
+    h3.title-orange Création de produit
+    .row.controlButton.form-group                           
+        textarea(id="nom" placeholder="Nom" cols=15 rows=1)
+        textarea(id="prix" placeholder="Prix" cols=9 rows=1)
+        textarea(id="desc" placeholder="Description" cols=50 rows=1)
+        select(id="cat")
+            each minicat in allProd.allCat        
+                option(value=minicat) #{minicat}  
+        textarea(id="img" placeholder="imgPath" cols=15 rows=1)
+        button.btn.btn-default(id="createProd" onclick="createProd()") create product
+    p#createRes
+    h3.title-orange Réincarnation de produit
+    .row.form-group            
+        textarea(id="id" placeholder="id à respawn" cols=20 rows=1)
+        button.btn.btn-default(id="softcreateProd" onclick="softcreateProd()") respawn 
+    p#softcreateRes
+    
+    h3 Détails utiles
+    p   Les clients ne voient afficher que les produits non-caché et avec une quantité virtuelle >0.
+    p   La gestion des stocks ne tient compte que de la visibilité des produit pas des quantités, le but d'en rendre certains invisible mais existant dans la BDD est de pouvoir continuer à afficher les historiques de stock et d'achats même après l'arrêt de leurs mise en vente.
+        script(src="/javascripts/stocks.js")

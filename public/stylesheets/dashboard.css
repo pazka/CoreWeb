@@ -1,0 +1,22 @@
+.center-block{
+    margin : auto;
+    width: 50%;
+}
+
+.items{
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgb(220,235,255);
+    padding: 3vw;
+    width : 100%;
+    margin : 2px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.items:hover{
+    background-color: rgb(255, 238, 206);
+}

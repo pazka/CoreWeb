@@ -1,0 +1,56 @@
+extends layout
+
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 Admin board
+                
+        p#message
+        .form-group.row
+            input#idPromote.form-control(type='numeric'  name='id' placeholder="id to promote").col-md-2
+            input#role.form-control(type='numeric'  name='role' placeholder="role").col-md-2
+            button(onclick="promote()")#promote.btn.btn-primary Promote
+            pre.col 0:Non-paid 1:Retired 2:Regular(paid) 3:Staff 4:Admin
+            
+        .form-group.row
+            input#roletoconvert.form-control(type='numeric'  name='affectedRole' placeholder="affected roles").col-md-2
+            input#roleglobal.form-control(type="numeric"  name='roleglobal' placeholder="role to give").col-md-2
+            button(onclick="convert()")#convert.btn.btn-primary Convert
+            p.col Renouvellement pour la nouvelle année, tout le monde repasse à Non-paid.
+              
+        .form-group.row
+            input#idrefund.form-control(type='numeric'  name='id' placeholder="id to give cc").col-md-2
+            input#amountrefund.form-control(type='numeric'  name='amount' placeholder="amount (00.00)").col-md-2
+            button(onclick="refund()")#refund.btn.btn-primary Rembourser
+            p.col Donner de l'argent depuis le compte de l'amicale(ID 1) à celui d'un user.
+            
+        .form-group.row
+            input#amount.form-control(type='numeric'  name='amount' placeholder=solde+" €").col-md-2
+            button(onclick="changeMoney()")#giveMoney.btn.btn-primary Give
+            p.col Donner/retirer de l'argent sans restriction sur le compte de l'amicale (Utilisation non-nécessaire dans la plupart des cas).
+            
+        .form-group.row
+            input#amountmsp.form-control(type='numeric'  name='amount' placeholder=msp+" €").col-md-2
+            button(onclick="changeMembershipPrice()")#changemsp.btn.btn-primary Changer
+            p.col Changer le prix d'adhésion amicaliste 
+            
+        .form-group.row
+            textarea#validityText.form-control.col-4= JSON.stringify(validity, undefined, 4) 
+            button(onclick="changeAvailability()")#updateValidity.btn.btn-primary Update
+            button(onclick="loadDefault()")#updateValidity.btn.btn-default Default
+            p.col Éditer les horaires de disponibilité des différentes catégories de produits. Possiblité d'insérer plusieurs plages horaires dans le tableau. suivre les exemples : Un start, un end par plage.    
+        
+        .form-group.row
+            label.switch
+                p spePage
+                if spePage
+                    input#statePage(type="checkbox"
+                    checked="checked" onchange="changeSpePage()")
+                else 
+                    input#statePage(type="checkbox" onchange="changeSpePage()")
+                        
+                span.slider.round
+            p.col Activer la page de gestion des amicalistes pour la caisse, utile lors de la rentrée quand l faut convertir un compte, créer un amicaliste avec un id custom ou remplir le compte artificiellement (possible aussi depuis la caisse).
+                    
+    script(src="/javascripts/admin.js")

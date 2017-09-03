@@ -1,0 +1,22 @@
+extends board
+
+block order
+    .row
+        .col
+            h5 Commande courante
+            .row
+                p.col-4 Prix:
+                p.col-4#totalPrice.col 0
+                p.col-4 cc
+        .col.row
+            label.switch
+                input.switch#state(type="checkbox" onchange="changeStatus()")
+                span.slider.round
+            p#lblStat Espèces 
+    .row
+        input#idAm.form-control(type='numeric', placeholder='Id' name='id').col
+        input#remarque.form-control(type="text", placeholder="remarque").col
+        input#reduc.form-control(type="numeric", placeholder="Reduc To Apply (0-100)%").col
+
+    button#execButton.btn.btn-primary Executer
+    .row#orderProd

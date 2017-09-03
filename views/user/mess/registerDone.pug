@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h5 Vous êtes enregistré !
+
+    h3.display-4   Voici votre id : #{userId} 
+    p.highlightRed    Retenez bien votre ID ! Notez-le ! C'est ce qui vous permettra de vous connecter sur l'app.
+    p Si vous ne vous en rappellez plus, allez demander à l'amicale avec le nom ou prénom d'inscription.
+        
+    a(href="/user/login") Go to login page
