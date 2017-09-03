@@ -40,14 +40,14 @@ Prod.incrementProd = function(idProd,value){
     return db.pr.incrementProd(idProd,value).then(res=>{
         ctrlRec.createRecord(idProd,Date.now());
         return res;
-    });;
+    });
 }
 
 Prod.incrementQtrProd = function(idProd,value){
     return db.pr.incrQtrProd(idProd,value).then(res=>{
         ctrlRec.createRecord(idProd,Date.now());
         return res;
-    });;
+    });
 }
 
 Prod.reserveProd = function(idProd,value){
@@ -66,7 +66,6 @@ Prod.createProd = function(prix,nom,desc,qt,cat,img){
 
 Prod.updateProd = function(id,value){
     return db.pr.updateProduct(id,value).then(res=>{
-        ctrlRec.createRecord(id,Date.now());
         return res;
     });
 }
@@ -84,7 +83,7 @@ Prod.getAvailableCats = function(){
     var validity = storage.getItemSync('productValidity');
     if(validity == undefined)
         return [];
-        
+
     var result = [];
 
     var isValid = function(cat){
