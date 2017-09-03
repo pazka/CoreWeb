@@ -82,6 +82,9 @@ Prod.getCats = function(){
 Prod.getAvailableCats = function(){
     storage.initSync();
     var validity = storage.getItemSync('productValidity');
+    if(validity == undefined)
+        return [];
+        
     var result = [];
 
     var isValid = function(cat){
