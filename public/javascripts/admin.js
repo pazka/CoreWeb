@@ -31,6 +31,15 @@ function changeAvailability(){
     }
 }
 
+function changenews(){
+    try {
+        var val = $("#validityText").val();
+        $.post('/admin/changeValidity',{val:val},processData);
+    } catch (e) {
+        processData(e);
+    }
+}
+
 function changeMembershipPrice(){
     try {
         var val = $("#amountmsp").val();
