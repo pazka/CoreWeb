@@ -3,7 +3,7 @@ var router = express.Router();
 var ctrlBask = require('../controllers/basket_ctrl');
 var ctrlProd = require('../controllers/prod_ctrl');
 var ctrlUser = require('../controllers/user_ctrl');
-var Order = require('../utilities/Order');
+var Order = require('../utilities/order');
 var utils = require('../utilities/utilities');
 
 const TIMETOWAIT = 5;
