@@ -49,6 +49,10 @@ router.post('/execute',function(req,res,next){
     parsedReq = JSON.parse(req.body.order);
     parsedReq.idAm = ctrlUser.getUserInfos(req).id;//verif to keep hacker from putting another id
     parsedReq.remarque = "#"+parsedReq.idAm+":"+parsedReq.remarque;
+    if(parsedReq.remarque.length >= 500){
+        res.send(JSON.stringify([{idProd:0,text:"Remarque trop grande"}]));
+        return "nope";
+    }
 
     utils.preventSpamAsync(req.ip,"shop",TIMETOWAIT,ACTIONMAX,()=>{
         return ctrlBask.verifyOrder(parsedReq).then(result => {
