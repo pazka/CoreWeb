@@ -16,9 +16,10 @@ router.get('/',function(req,res,next){
     var validity = storage.getItemSync('productValidity');
     var spePage = storage.getItemSync('isSpePageAvailable');
     var msp = storage.getItemSync('membershipPrice');
+    var news = storage.getItemSync('news');
 
     ctrlUser.getAmicalisteById(2).then(usr=>{
-        res.render("admin/admin",{validity:validity,spePage:spePage,msp:msp/100,solde:usr.solde/100});
+        res.render("admin/admin",{newshtml:news,validity:validity,spePage:spePage,msp:msp/100,solde:usr.solde/100});
     });
 });
 
@@ -31,7 +32,7 @@ router.post('/promote',function(req,res,next){
         if(!usr)
             res.send("id not found");
         else
-            res.send("done !");
+            res.send("User promoted !");
     }).catch((err)=>{
         res.send("something went wrong : "+ err + err.stack);
     });
@@ -56,7 +57,7 @@ router.post('/refund',function(req,res,next){
         if(result != "ok")
             res.send("Something wasn't right : " + result);
         else
-            res.send("done !");
+            res.send("Refunded");
     }).catch((err)=>{
         res.send("something went wrong : "+ err + err.stack);
     });
@@ -68,7 +69,7 @@ router.post('/changeMoney',function(req,res,next){
         if(result != "ok")
             res.send("Something wasn't right : " + result);
         else
-            res.send("done !");
+            res.send("money changed");
     }).catch((err)=>{
         res.send("something went wrong : "+ err + err.stack);
     });
@@ -80,7 +81,19 @@ router.post('/changeValidity',function(req,res,next){
 
         storage.initSync();
         storage.setItemSync('productValidity',val);
-        res.send("done !")
+        res.send("validity changed!")
+    } catch (e) {
+        res.send(e +" \n" +e.stack);
+    }
+});
+
+router.post('/changeNews',function(req,res,next){
+    try {
+        var val = req.body.val;
+
+        storage.initSync();
+        storage.setItemSync('news',val);
+        res.send("News updated")
     } catch (e) {
         res.send(e +" \n" +e.stack);
     }
@@ -92,7 +105,7 @@ router.post('/changeMembershipPrice',function(req,res,next){
 
         storage.initSync();
         storage.setItemSync('membershipPrice',val*100);
-        res.send("done !")
+        res.send("price modified")
     } catch (e) {
         res.send(e +" \n" +e.stack);
     }

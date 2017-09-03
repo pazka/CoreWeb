@@ -26,7 +26,7 @@ router.get('/shop', function(req, res, next) {
         console.log(acat);
         res.render('shop/shop',{allProd : allProd, availableCat:acat});
     }).catch(error=>{
-        res.render('shop/shop',{allProd : {allCat:[]},availableCat:[],err:error})
+        res.render('shop/shop',{allProd : {allCat:[]},availableCat:[],err:error.stack})
     });
 });
 
@@ -48,7 +48,7 @@ router.use('/api/check', function(req, res, next) {
 router.post('/execute',function(req,res,next){
     parsedReq = JSON.parse(req.body.order);
     parsedReq.idAm = ctrlUser.getUserInfos(req).id;//verif to keep hacker from putting another id
-    parsedReq.remarque = "#"+parsedReq.idAm+":"+parsedReq.remarque; 
+    parsedReq.remarque = "#"+parsedReq.idAm+":"+parsedReq.remarque;
 
     utils.preventSpamAsync(req.ip,"shop",TIMETOWAIT,ACTIONMAX,()=>{
         return ctrlBask.verifyOrder(parsedReq).then(result => {

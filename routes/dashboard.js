@@ -3,6 +3,7 @@ var userCtrl = require('../controllers/user_ctrl');
 var moneyCtrl = require('../controllers/money_ctrl');
 var basketCtrl = require('../controllers/basket_ctrl');
 var utils = require('../utilities/utilities');
+var storage = require('node-persist');
 var router = express.Router();
 
 router.use('/',function(req,res,next){
@@ -16,7 +17,11 @@ router.use('/',function(req,res,next){
 
 router.get('/', function(req, res, next) {
         userCtrl.updateSession(req);
-        res.render('user/dashboard/dashboard',userCtrl.getUserInfos(req));
+        storage.initSync();
+        var infos = userCtrl.getUserInfos(req);
+        infos.newshtml = storage.getItemSync('news');
+
+        res.render('user/dashboard/dashboard',infos);
 });
 router.get('/solde', function(req, res, next) {
         userCtrl.getAmicalisteById(userCtrl.getUserInfos(req).id).then(usr=>{

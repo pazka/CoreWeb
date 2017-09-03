@@ -42,8 +42,8 @@ block content
             p.col Éditer les horaires de disponibilité des différentes catégories de produits. Possiblité d'insérer plusieurs plages horaires dans le tableau. suivre les exemples : Un start, un end par plage.    
             
         .form-group.row
-            textarea#news.form-control.col-4= JSON.stringify(validity, undefined, 4) 
-            button(onclick="changeAvailability()")#updateNews.btn.btn-primary Update
+            textarea#news.form-control.col-4= newshtml
+            button(onclick="changeNews()")#updateNews.btn.btn-primary Update
             p.col À rédiger en html pur(js et css possible). Code qui sera affiché sur la page de login et le dashboard.    
         
         .form-group.row

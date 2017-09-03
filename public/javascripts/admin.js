@@ -31,10 +31,10 @@ function changeAvailability(){
     }
 }
 
-function changenews(){
+function changeNews(){
     try {
-        var val = $("#validityText").val();
-        $.post('/admin/changeValidity',{val:val},processData);
+        var val = $("#news").val();
+        $.post('/admin/changeNews',{val:val},processData);
     } catch (e) {
         processData(e);
     }
