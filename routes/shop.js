@@ -55,7 +55,7 @@ router.post('/execute',function(req,res,next){
            if(result.length == 0){
                ctrlBask.createBasket(parsedReq).then((idBask) => {
                    res.send(JSON.stringify([{idProd:0,text:"La commande est passé (N°"+idBask+")\n. Retenez son numéro et allez la chercher dans la demi-heure avant son annulation."}]));
-                   return true;
+                   return false;
                }).catch(error => {
                    res.send(JSON.stringify([{idProd:0,text:"une erreur est survenue durant la création de la commande.\n" + error}]));
                    return false;

@@ -58,8 +58,8 @@ Money.transfertMoney = function (idSender,idReceiver,amount,bypassid = false){
         if(idReceiver == idSender && !bypassid)
             return resolve("You can't send money to yourself silly :p ");
 
-        else if(amount < 1)
-            return resolve("Can't send less than 0.1 c.c.")
+        else if(amount < 1 || amount == undefined)
+            return resolve("Can't send less than 0.1 c.c.");
 
         var idCheck =  [user_ctrl.getAmicalisteById(idReceiver),user_ctrl.getAmicalisteById(idSender)];
         return Promise.all(idCheck).then((userRes)=>{//receiver exist

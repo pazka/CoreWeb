@@ -51,6 +51,8 @@ router.post('/giveMoney', function(req, res, next) {
         }else{
             res.render('user/dashboard/giveMoney',{err : "Bad password"});
         }
+    }).catch(err =>{
+        res.render('user/dashboard/giveMoney',{err : "Bad fields: " + err});
     });
 });
 
