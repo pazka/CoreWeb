@@ -82,7 +82,7 @@ User.updateAmById = function(id,remarque,mdp,mdpConf){
         var val = {};
 
         if (mdp != '')
-            val.psw = utils.encrypt(mdp);
+            val.psw = utils.encrypt(JSON.stringify(mdp));
         if (remarque != '')
             val.remarque = remarque;
 

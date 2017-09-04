@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var not_secure_key = "NOTSECUREKEYOMFGCHANGETHATFORLOVEOFGOD_go to the instalinstruction.txt";
 process.env.cookieKey = ( process.env.cookieKey == null || process.env.cookieKey == undefined) ? process.env.cookieKey : not_secure_key;
 if( process.env.cookieKey == not_secure_key)
-    console.log("\n\n\n!!!NOTSECURED_PASSWORD_encryption!!!\n\n\n");
+    console.log("!!!NOTSECURED_PASSWORD_encryption!!!\n");
 app.use(session({
   cookieName: 'session',
   secret: process.env.cookieKey,
