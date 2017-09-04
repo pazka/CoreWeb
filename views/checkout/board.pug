@@ -76,16 +76,18 @@ block content
     .form-group.row
         .col-md-4.col-sm-6.row
             input.col#idFill.form-control(type="text", placeholder="Id to fill")
-            input.col#amountFill.form-control(type="text", placeholder="amount(+)")
+            input.col#amountFill.form-control(type="text", placeholder="amount (00.00)")
         button.btn.btn-success(onclick="fillAccount()") Fill Account
-        p Remplit le compte de l'amicaliste avec de l'argent une fois que celui-ci à payé la somme à remplir
+        p Remplit le compte de l'amicaliste avec de l'argent une fois que celui-ci à payé la somme à remplir (positif only)
     .form-group.row
         input#getIdAm.form-control(type="text", placeholder="Id to check").col-md-4.col-sm-8
         button.btn.btn-success(onclick="getAmicaliste()") Check User
+        p infos brutes : (soldeRéel = solde/100)
         p#userInfos
     .form-group.row
         input#getIdAmName.form-control(type="text", placeholder="name to find").col-md-4.col-sm-8
         button.btn.btn-success(onclick="getAmicalisteName()") Check User By Name
+        p infos brutes : (soldeRéel = solde/100)
         p#userInfosName
     .form-group.row
         input#name.form-control(type="text", placeholder="nom").col-md-2.col-sm-4
