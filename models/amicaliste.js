@@ -1,7 +1,7 @@
 var sequelize = require('../models/bdd');
 var Amicaliste = sequelize.define('amicaliste', {
     idAm       : { type: sequelize.mod.INTEGER, allowNull: false,primaryKey: true},
-    psw        :  { type: sequelize.mod.STRING(500), allowNull: false},
+    psw        :  { type: sequelize.mod.STRING, allowNull: false},
     role       : { type: sequelize.mod.INTEGER, allowNull: false}, //use the controller to know the type for sure
     nom        : { type: sequelize.mod.STRING, allowNull: false},
     prenom     : { type: sequelize.mod.STRING, allowNull: true},

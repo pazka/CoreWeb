@@ -81,14 +81,15 @@ User.updateAmById = function(id,remarque,mdp,mdpConf){
 
         var val = {};
 
-        if (mdp != '')
+        if (mdp != ''){
             val.psw = utils.encrypt(JSON.stringify(mdp));
-        if (remarque != '')
-            val.remarque = remarque;
+        }
+        if (remarque != ''){
+            val.remarque = remarque;}
 
         model.am.getAmicalisteById(id).then(usr =>{
 
-            return model.am.updateAm(id,val).then(res=>{
+            return model.am.updateAmByInstance(usr,val).then(res=>{
                 return resolve(res);
             }).catch(err=>{
                 return reject(res);
