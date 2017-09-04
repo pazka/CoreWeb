@@ -45,7 +45,7 @@ Am.updateAm  = function(id,values){
     return Amicaliste.findById(id).then(function(user){
         if (user)
             return user.update(values).then((am)=>{
-                return "done";
+                return "Changements enregistrés !";
             });
         else
             return "User not found with this id : " + id;

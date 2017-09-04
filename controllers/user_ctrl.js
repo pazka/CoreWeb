@@ -66,14 +66,26 @@ User.upgradeUserToRegular= function(id){
 
 };
 
-User.updateAmById = function(id,value){
-    return model.am.getAmicalisteById(id).then(usr =>{
-        if(!usr){
-            return usr;
+User.updateAmById = function(id,remarque,mdp,mdpConf){
+    return new Promise((resolve,reject) =>{
+        if(remarque.length > 500){
+            return resolve("La remarque ne peut pas faire plus de 500 caractères.");
         }
-        else
-            return model.am.updateAm(id,value);
-    })
+
+        if(mdp != mdpConf){
+            return resolve("Les mots de passe ne sont pas identiques");
+        }
+
+        model.am.getAmicalisteById(id).then(usr =>{
+            return model.am.updateAm(id,{remarque : remarque, psw : utils.encrypt(mdp)}).then(res=>{
+                return resolve(res);
+            }).catch(err=>{
+                return reject(res);
+            });
+        }).catch(err=>{
+            return reject(err);
+        });
+    });
 };
 
 User.convertAm = function(roleAf,role){

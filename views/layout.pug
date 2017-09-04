@@ -18,6 +18,9 @@ html
                     a.nav-item.nav-link(href="/user/dashboard")
                        h5 dashboard
                 if role >= roles["regular"]
+                    a.nav-item.nav-link(href="/user/update")
+                       h5 options
+                if role >= roles["regular"]
                     a.nav-item.nav-link(href="/shop")
                         h5 shop
                 if role >= roles["staff"]

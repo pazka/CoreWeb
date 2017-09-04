@@ -37,6 +37,23 @@ router.post('/register', function(req, res, next) {
     });
 });
 
+router.get('/update', function(req, res, next) {
+        res.render('user/update');
+});
+
+router.post('/update', function(req, res, next) {
+    var infos = ctrl.getUserInfos(req);
+    var rem = req.body.remarque;
+    var psw = req.body.psw;
+    var pswConfirm = req.body.pswConfirm;
+
+    ctrl.updateAmById(infos.id,rem,psw,pswConfirm).then(result=>{
+        res.render('user/update',{success : result});
+    }).catch(err=>{
+        res.render('user/update',{err : "Something went wrong : "+ err});
+    });
+});
+
 router.post('/login', function(req, res, next) { // TODO Clean up and put in controller
     utils.preventSpamAsync(req.ip,"login",2,3,()=>{
         return ctrl.getAmicalisteById(req.body.id).then((user) => {//SUCCESS
