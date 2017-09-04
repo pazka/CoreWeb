@@ -9,14 +9,14 @@ block content
                 // register form
                 form(method='POST' action='/user/register')
                     div.form-group
-                        label(for='prenom') First Name:
+                        label(for='prenom') Prénom
                         input#name.form-control(type='text', placeholder='first name' name='firstname')
-                        label(for='nom') Name:
+                        label(for='nom') Nom (pour te retrouver)
                         input#name.form-control(type='text', placeholder='first name' name='name')
-                    div.form-group
-                        label(for='password') Password:
+                    div.form-group 
+                        label(for='password') Mot de passe (totalement encrypté, personne ne le verra)
                         input#pw.form-control(type='password' name='password')
                     div.form-group
-                        label(for='confirmPassword') Confirm Password:
+                        label(for='confirmPassword') Mot de passe de confirmation
                         input#pw2.form-control(type='password' name='confirmPassword')
-                    button.btn.btn-primary(type='submit') Sign up
+                    button.btn.btn-primary(type='submit') Entrez dans la secte !
