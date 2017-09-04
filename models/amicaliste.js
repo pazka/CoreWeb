@@ -53,7 +53,7 @@ Am.updateAm  = function(id,values){
 };
 Am.updateAmByInstance  = function(user,values){
     return user.update(values).then((am)=>{
-        return "done";
+        return am;
     });
 };
 

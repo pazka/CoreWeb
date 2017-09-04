@@ -35,8 +35,9 @@ html
                 if role >= roles["admin"]
                     a.nav-item.nav-link(href="/admin")
                         h5 admin
-                a.nav-item.nav-link.logout(href="/user/logout").col-1
-                    p Log Out
+                if role >= roles["random"]
+                    a.nav-item.nav-link.logout(href="/user/logout").col-1
+                        p Log Out
     body
         pre(style='color:green') #{success}
         pre(style='color:red') #{err}

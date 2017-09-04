@@ -208,9 +208,7 @@ function getAmicalisteName(){
 function createAmicaliste(){
     if($("#name").val() != "" && $("#surname").val() != "" ){
         $.post('/checkout/createAmicaliste',{name:$("#name").val(),firstname:$("#surname").val()}, function(data){
-            data = JSON.parse(data);
-            $("#createdUser").text(data.text);
-            validateAmicalisteId(data.id);
+            $("#createdUser").text(data);
         });
     }
 }

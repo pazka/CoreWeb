@@ -82,9 +82,16 @@ router.post('/getUserName',function(req,res,next){
 
 
 router.post('/createAmicaliste',function(req,res,next){
-    ctrlUser.addUser(req.body.name,req.body.firstname,"1234","1234").then((result)=>{
+    ctrlUser.addUser(req.body.name,req.body.firstname,"123456","123456").then((result)=>{
         if(result.stat == "ok"){
-            res.send(JSON.stringify({text:"Inscription effectuée ! Id: #" + result.idAm,id:result.idAm})); //success
+            ctrlUser.upgradeUserToRegular(result.idAm).then(usr=>{
+                if(!usr)
+                    res.send("Coudn't upgrade to id");
+                else
+                    res.send("Inscription effectuée ! Id: #" + usr.idAm);
+            }).catch((err) =>{
+                res.send("something went wrong :\n" + err + err.stack);
+            }); //success
         }
         else
             res.send(result.text);

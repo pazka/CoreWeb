@@ -58,10 +58,12 @@ User.getAmicalisteByParam = function(p){
 
 User.upgradeUserToRegular= function(id){
     return model.am.getAmicalisteById(id).then(usr=>{
+        if (!usr)
+            return "User not found at this id"
         if(usr.role >= User.role("regular"))
             return "User already regular or above";
         else
-            return model.am.updateAmByInstance(usr,{role:User.role("regular")});
+            return model.am.updateAmByInstance(usr,{role:User.role("regular")})
     });
 
 };

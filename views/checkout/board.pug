@@ -78,6 +78,7 @@ block content
             input.col#idFill.form-control(type="text", placeholder="Id to fill")
             input.col#amountFill.form-control(type="text", placeholder="amount(+)")
         button.btn.btn-success(onclick="fillAccount()") Fill Account
+        p Remplit le compte de l'amicaliste avec de l'argent une fois que celui-ci à payé la somme à remplir
     .form-group.row
         input#getIdAm.form-control(type="text", placeholder="Id to check").col-md-4.col-sm-8
         button.btn.btn-success(onclick="getAmicaliste()") Check User
@@ -89,7 +90,8 @@ block content
     .form-group.row
         input#name.form-control(type="text", placeholder="nom").col-md-2.col-sm-4
         input#surname.form-control(type="text", placeholder="prénom").col-md-2.col-sm-4
-        button.btn.btn-success(onclick="createAmicaliste()") Create Regular Amicaliste
+        button.btn.btn-success(onclick="createAmicaliste()") Create Regular(paid) Amicaliste
+        p Création d'un User avec "123456" comme mdp par défault et un statut d'Amicaliste immédiat (payé donc)
         p#createdUser
     
         
