@@ -57,7 +57,7 @@ router.post('/execute',function(req,res,next){
     utils.preventSpamAsync(req.ip,"shop",TIMETOWAIT,ACTIONMAX,()=>{
         return ctrlBask.verifyOrder(parsedReq).then(result => {
            if(result.length == 0){
-               ctrlBask.createBasket(parsedReq).then((idBask) => {
+               return ctrlBask.createBasket(parsedReq).then((idBask) => {
                    res.send(JSON.stringify([{idProd:0,text:"La commande est passé (N°"+idBask+")\n. Retenez son numéro et allez la chercher dans la demi-heure avant son annulation."}]));
                    return false;
                }).catch(error => {

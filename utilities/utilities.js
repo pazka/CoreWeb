@@ -68,7 +68,7 @@ Utils.cleanArray = function(arr,arrToIgnore){
 
 //when using this function, you need to makesure the fn return a bool
 Utils.preventSpam = function(ip,index,timeToLive,limit,fn,fn_tooManyTries){
-    storage.initSync({continuous : false,ttl:timeToLive*60*1000, interval : timeToLive* 60 *1000});
+    storage.initSync({interval: false, continuous : false,expiredInterval:1*60*1000});
     var counter = storage.getItemSync(ip);
     console.log(counter);
     if(counter === undefined || counter[index] === undefined ){
@@ -80,40 +80,40 @@ Utils.preventSpam = function(ip,index,timeToLive,limit,fn,fn_tooManyTries){
         fn_tooManyTries();
     else{//EXEC OF MAIN FUNCTION
         var val = fn();
-        if(val === undefined )
-            console.log("ERROR : Prevent spam : function returning a usable value : " + val );
-        if(!val)
-            counter[index] = counter[index]+ 1;
-        else
-            counter[index] = 0;
+        if(val != true && val != false){
+            console.log("ERROR : Prevent spam : function returning a unusable value : " + val );}
+        if(!val){
+            counter[index] = counter[index]+ 1;}
+        else{
+            counter[index] = 0;}
 
-        storage.setItemSync(ip,counter);
+        storage.setItemSync(ip,counter,{ttl:timeToLive*60*1000});
     }
 }
 
 //when using this function, you need to makesure the fn return a bool
 Utils.preventSpamAsync = function(ip,index,timeToLive,limit,fn,fn_tooManyTries){
-    storage.initSync({continuous : false,ttl:false,expiredInterval:timeToLive*60*1000});
+    storage.initSync({interval: false, continuous : false,expiredInterval:1*60*1000});
     var counter = storage.getItemSync(ip);
     if(counter === undefined || counter[index] === undefined ){
         counter = {};
         counter[index] = 0;
     }
-    counter[index] = 0;//TODO FIX THAT SHIT
+    //counter[index] = 0;//TODO FIX THAT SHIT
 
     if(counter[index] > limit) //FAIL
         fn_tooManyTries();
     else{//EXEC OF MAIN FUNCTION
-        var val = fn().then(val =>{
-            if(val !== true || val !== false)
-                console.log("ERROR : Prevent spam : function returning a usable value : " + val );
+        fn().then(val =>{
+            if(val != true && val != false){
+                console.log("ERROR : Prevent spam : function returning a unusable value : " + val );}
 
-            if(!val)
-                counter[index] = counter[index]+ 1;
-            else
-                counter[index] = 0;
+            if(!val){
+                counter[index] = counter[index]+ 1;}
+            else{
+                counter[index] = 0;}
 
-            storage.setItemSync(ip,counter);
+            storage.setItemSync(ip,counter,{ttl:timeToLive*60*1000});
         });
     }
 }

@@ -46,7 +46,6 @@ router.post('/update', function(req, res, next) {
     var rem = req.body.remarque;
     var psw = req.body.psw;
     var pswConfirm = req.body.pswConfirm;
-
     ctrl.updateAmById(infos.id,rem,psw,pswConfirm).then(result=>{
         res.render('user/update',{success : result});
     }).catch(err=>{

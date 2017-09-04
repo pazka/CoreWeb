@@ -69,15 +69,26 @@ User.upgradeUserToRegular= function(id){
 User.updateAmById = function(id,remarque,mdp,mdpConf){
     return new Promise((resolve,reject) =>{
         if(remarque.length > 500){
-            return resolve("La remarque ne peut pas faire plus de 500 caractères.");
+            return reject("La remarque ne peut pas faire plus de 500 caractères.");
         }
 
         if(mdp != mdpConf){
-            return resolve("Les mots de passe ne sont pas identiques");
+            return reject("Les mots de passe ne sont pas identiques");
+        }
+        if(mdp != '' && mdp.length < 6){
+            return reject("Le mot de passe doit faire 6 caractère minimum");
         }
 
+        var val = {};
+
+        if (mdp != '')
+            val.psw = utils.encrypt(mdp);
+        if (remarque != '')
+            val.remarque = remarque;
+
         model.am.getAmicalisteById(id).then(usr =>{
-            return model.am.updateAm(id,{remarque : remarque, psw : utils.encrypt(mdp)}).then(res=>{
+
+            return model.am.updateAm(id,val).then(res=>{
                 return resolve(res);
             }).catch(err=>{
                 return reject(res);
