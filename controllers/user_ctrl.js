@@ -138,7 +138,7 @@ User.getUserInfos = function(req){
         return {
             id : undefined,
             cc : 0,
-            ro : 0
+            ro : -1
         };
 
     return {
