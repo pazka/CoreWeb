@@ -10,11 +10,11 @@ block content
                 form(method='POST' action='/user/register')
                     div.form-group
                         label(for='prenom') Prénom
-                        input#name.form-control(type='text', placeholder='first name' name='firstname')
-                        label(for='nom') Nom (pour te retrouver et te casser les genoux)
-                        input#name.form-control(type='text', placeholder='first name' name='name')
+                        input#name.form-control(type='text', placeholder='' name='firstname')
+                        label(for='nom') Nom 
+                        input#name.form-control(type='text', placeholder='Pour te retrouver et te casser les genoux' name='name')
                     div.form-group 
-                        label(for='password') Mot de passe (6 char. min., stocké nul part en clair, totalement encrypté)
+                        label(for='password') Mot de passe (6 char. min., stocké nulle part en clair, totalement encrypté)
                         input#pw.form-control(type='password' name='password')
                     div.form-group
                         label(for='confirmPassword') Mot de passe de confirmation
