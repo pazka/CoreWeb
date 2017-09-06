@@ -173,7 +173,6 @@ router.post('/validateAmicaliste', function(req, res, next) {
 });
 
 router.post('/cancelBask', function(req, res, next) {
-    console.log("gonna delete" + req.body.baskId);
     ctrlBask.deleteBask(req.body.baskId).then((mess) => {
         res.send(mess);
     });
