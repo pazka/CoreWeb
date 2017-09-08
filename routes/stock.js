@@ -3,9 +3,15 @@ var ctrl = require('../controllers/prod_ctrl');
 var ctrlUser = require('../controllers/user_ctrl');
 var router = express.Router();
 
-router.use('/',function(req,res,next){
+router.get('/',function(req,res,next){
     if(res.locals.role < ctrlUser.role("staff"))
         res.render('mess',{text:"Accès refusé",link:"/user",linkName:"la page de login"});
+    else
+        next();
+});
+router.post('/',function(req,res,next){
+    if(res.locals.role < ctrlUser.role("staff"))
+        res.send("Accès refusé, reconnectez-vous si vous êtes censé avoir accès à cette page");
     else
         next();
 });
