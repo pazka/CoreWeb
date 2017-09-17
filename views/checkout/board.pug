@@ -77,8 +77,8 @@ block content
         .col-md-4.col-sm-6.row
             input.col#idFill.form-control(type="text", placeholder="Id to fill")
             input.col#amountFill.form-control(type="text", placeholder="amount (00.00)")
-        button.btn.btn-success(onclick="fillAccount()") Fill Account
-        p Remplit le compte de l'amicaliste avec de l'argent une fois que celui-ci à payé la somme à remplir (positif only)
+        button.btn.btn-success(onclick="fillAccount()") Add/Take money from account
+        p Remplit ou vide le compte de l'amicaliste avec de l'argent une fois que celui-ci à payé la somme indiquée (sous cette forme : 00.00)
     .form-group.row
         input#getIdAm.form-control(type="text", placeholder="Id to check").col-md-4.col-sm-8
         button.btn.btn-success(onclick="getAmicaliste()") Check User

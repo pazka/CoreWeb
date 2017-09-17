@@ -154,9 +154,11 @@ router.post('/fillAccount', function(req, res, next) {
     var id = req.body.id;
     var amount = req.body.amount;
 
-    ctrlMoney.transfertMoney(2,id,amount).then(result=>{
+    ctrlMoney.transfertMoney(2,id,amount,true).then(result=>{
         if(result == "ok"){
-            res.send("Transfert effectué ! : Core ->"+amount/100+"->#"+id);}
+            ctrlMoney.changeMoneyByIdNoRecord(2,amount);
+            res.send("Transfert effectué ! : Client ->"+amount/100+"-> Core ->"+amount/100+"->#"+id);
+        }
         else{
             res.send(result);
         }

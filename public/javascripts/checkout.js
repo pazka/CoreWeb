@@ -96,6 +96,9 @@ var updatePrice = function(){
 $("#execButton").click((elem)=>{
     var order = new Order($("#idAm").val(),$("#remarque").val() ? $("#remarque").val() : "",state,orderProds);
 
+
+    order.wreduc = $("#wreduc").val() ? $("#wreduc").val() : 0;
+
     if( (order.idAm == "" || order.idAm == null || order.idAm == undefined ) && state !="lq_"){
         $("#message").html("No Id");
     }else if(order.products.length ==0){

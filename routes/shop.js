@@ -23,7 +23,7 @@ router.get('/shop', function(req, res, next) {
     ctrlProd.getAllAvailableProd().then((result) =>{
         var allProd =  ctrlProd.segmentProdByCat(result);
         var acat = ctrlProd.getAvailableCats();
-        console.log(acat);
+        //console.log(acat);
         res.render('shop/shop',{allProd : allProd, availableCat:acat});
     }).catch(error=>{
         res.render('shop/shop',{allProd : {allCat:[]},availableCat:[],err:error.stack})
@@ -47,8 +47,12 @@ router.use('/api/check', function(req, res, next) {
 
 router.post('/execute',function(req,res,next){
     parsedReq = JSON.parse(req.body.order);
+
     parsedReq.idAm = ctrlUser.getUserInfos(req).id;//verif to keep hacker from putting another id
+    parsedReq.wreduc = 0; //to keep hacker from putting alotofmoneyinhere
     parsedReq.remarque = "#"+parsedReq.idAm+":"+parsedReq.remarque;
+
+
     if(parsedReq.remarque.length >= 500){
         res.send(JSON.stringify([{idProd:0,text:"Remarque trop grande"}]));
         return "nope";

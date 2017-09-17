@@ -13,6 +13,9 @@ block order
                 input.switch#state(type="checkbox" onchange="changeStatus()")
                 span.slider.round
             p#lblStat Espèces 
+            .row
+                input.col-3(type="numeric" id="wreduc" name="amountreduc")
+                p centimes en moins
     .row
         input#idAm.form-control(type='numeric', placeholder='Id' name='id').col
         input#remarque.form-control(type="text", placeholder="remarque").col

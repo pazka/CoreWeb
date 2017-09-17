@@ -55,15 +55,16 @@ Bask.createBasket = function(order){
     }
 
     return Bask.initWithSale(order.idAm,firstProd.idProd,order.remarque,order.state,Date.now(),firstProd.qt,firstProd.reduc).then((bask) => {
-            var allCheck = [];
-            order.products.forEach((elem) => {
-                allCheck.push(Bask.addSale(bask.idBask,elem.idProd,elem.qt,elem.reduc,bask.createdAt)
-                .then(() => {return ""})
-                .catch(err => {return "\nerror : " + err;})
-                );
-            });// All reject or resolve values are going to be in the array
+        var allCheck = [];
+        order.products.forEach((elem) => {
+            allCheck.push(Bask.addSale(bask.idBask,elem.idProd,elem.qt,elem.reduc,bask.createdAt)
+            .then(() => {return ""})
+            .catch(err => {return "\nerror : " + err;})
+            );
+        });// All reject or resolve values are going to be in the array
 
-            return Promise.all(allCheck).then((result) => {
+        return Promise.all(allCheck).then((result) => {
+            return db.ba.updatePriceById(bask.idBask,-order.wreduc).then(()=>{
                 var res = utils.cleanArray(result,["",null,"ok"]);
                 if (res.length == 0){
                     return bask.idBask;
@@ -72,6 +73,7 @@ Bask.createBasket = function(order){
                     return "error during the creation Bask, BaskId:"+bask.idBask+"\n" + res;
                 }
             });
+        });
     });
 }
 
@@ -245,6 +247,7 @@ Bask.verifyOrderNoRestriction = function(order,reduc = false){
                     }
                 });
             });
+            totPrice = (totPrice - order.wreduc < 0) ? 0 : totPrice - order.wreduc;
 
             return db.am.getAmicalisteById(order.idAm).then(usr=>{
                 if(!usr)

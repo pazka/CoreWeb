@@ -16,7 +16,7 @@ Money.isTransactionLegal = function(id,amount){
     });
 };
 
-var changeMoneyByIdNoRecord = function (id,amount){
+Money.changeMoneyByIdNoRecord = function (id,amount){
     return Money.isTransactionLegal(id,amount).then((usr) => {
         if(usr != "no")
             return model.am.changeMoneyByInst(usr,amount).then(usr=>{
@@ -58,8 +58,8 @@ Money.transfertMoney = function (idSender,idReceiver,amount,bypassid = false){
         if(idReceiver == idSender && !bypassid)
             return resolve("You can't send money to yourself silly :p ");
 
-        else if(amount < 1 || amount == undefined)
-            return resolve("Can't send less than 0.1 c.c.");
+        else if( (amount < 1 || amount == undefined ) && !bypassid)
+            return resolve("Can't send less than 0.01 c.c.");
 
         var idCheck =  [user_ctrl.getAmicalisteById(idReceiver),user_ctrl.getAmicalisteById(idSender)];
         return Promise.all(idCheck).then((userRes)=>{//receiver exist
@@ -71,19 +71,19 @@ Money.transfertMoney = function (idSender,idReceiver,amount,bypassid = false){
                 return resolve("Sender doesn't exist");
 
 
-            changeMoneyByIdNoRecord(idSender,-amount).then((res) => {
+            Money.changeMoneyByIdNoRecord(idSender,-amount).then((res) => {
                 if(res != "ok")
                     return resolve(res);
 
-                changeMoneyByIdNoRecord(idReceiver,amount);//no reason he can't accept money
+                Money.changeMoneyByIdNoRecord(idReceiver,amount);//no reason he can't accept money
 
                 //creation of records
                 return model.tr.createTrans(idSender,idReceiver,amount,Date.now()).then(()=>{
                     return resolve("ok");
                 }).catch((error) => {
                     //if error cancel previous transfer
-                    changeMoneyByIdNoRecord(idSender,amount);
-                    changeMoneyByIdNoRecord(idReceiver,-amount);
+                    Money.changeMoneyByIdNoRecord(idSender,amount);
+                    Money.changeMoneyByIdNoRecord(idReceiver,-amount);
                     reject("Couldn't create transaction\n" + error + "\n" + error.stack);
                 });
             }).catch((err) =>{
