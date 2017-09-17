@@ -108,6 +108,7 @@ router.post('/createAmicaliste',function(req,res,next){
 
 router.post('/execute',function(req,res,next){
     order = JSON.parse(req.body.order);
+    order.remarque = order.remarque +"\n whole-reduc : " + order.wreduc;
     //order is an object of type Order
     ctrlBask.verifyOrderNoRestriction(order,true).then((result) => {
        if(result.length == 0){
