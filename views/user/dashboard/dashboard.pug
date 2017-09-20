@@ -5,6 +5,9 @@ block content
         .row
             h1.display-4.m-b-2 ##{id}
             img#reloadImg(src="/images/reload.png" onclick="refresh()")
+    if (ro <= 1)
+        p Votre compte est activé mais vous ne l'avez pas élevé au rang d'adhérent, vous n'aurez accès au shop qu'une fois la carte amicaliste achetée.
+        p Pour ce faire : Rendez-vous au guichet et demandez la validation de votre compte en fournissant votre ID (et préparez le prix de la carte évidemment).
     .center-block   
         .row 
             .col.items
