@@ -1,4 +1,4 @@
-# CoreWeb app
+# CoreWeb app (old not used anymore)
 
 Application de gestion des amicalistes, finances et des stocks de l'amicale Core.
 
